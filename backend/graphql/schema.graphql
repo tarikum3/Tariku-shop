@@ -1,0 +1,121 @@
+ 
+ 
+type Query
+{
+greeting: String
+products:[Product]
+topProducts:[Product]
+productById(id:ID!):Product
+users:[User]
+userById(id:ID!):User
+orders:[Order]
+myOrders(id:ID!):[Order]
+orderById(id:ID!):Order
+
+}
+type Mutation {
+deleteProduct(id:ID!):String
+createProduct(name:String,price:Float, description:String, image:String,brand:String,category:String,countInStock:Int,):Product
+updateProduct(id:ID!,name:String,price:Float, description:String, image:String,brand:String,category:String,countInStock:Int,):Product
+createProductReview(name:String):Review  
+deleteUser(id:ID!):String
+createUser(name:String,gmail:String,password:String,isAdmin:Boolean):User
+updateUser(id:ID!,name:String,gmail:String,password:String,isAdmin:Boolean):User
+createOrder( user:ID!,orderItems: [OrderItemInput], shippingAddress: ShippingAddressInput,paymentMethod: String,  paymentResult:PaymentResultInput,  taxPrice:Float,shippingPrice: Float,totalPrice:Float,isPaid: Boolean,paidAt:String,isDelivered:Boolean,deliveredAt:String):Order         
+updateOrderToPaid(id:ID!,orderItems: [OrderItemInput], shippingAddress: ShippingAddressInput,paymentMethod: String,  paymentResult:PaymentResultInput,  taxPrice:Float,shippingPrice: Float,totalPrice:Float,isPaid: Boolean,paidAt:String,isDelivered:Boolean,deliveredAt:String):Order
+updateOrderToDelivered(id:ID!,orderItems: [OrderItemInput], shippingAddress: ShippingAddressInput,paymentMethod: String,  paymentResult:PaymentResultInput,  taxPrice:Float,shippingPrice: Float,totalPrice:Float,isPaid: Boolean,paidAt:String,isDelivered:Boolean,deliveredAt:String):Order
+  
+}
+
+
+type Product {
+_id:ID!
+name:String
+reviews:[Review]
+rating:Float
+price:Float
+description:String
+  image:String
+brand:String
+  category:String
+  countInStock:Int
+}
+
+type Review {
+_id:ID!
+name:String
+user:ID!
+rating:Float
+comment:String
+}
+
+input ReviewInput {
+_id:ID!
+name:String
+user:ID!
+rating:Float
+comment:String
+}
+type User {
+_id:ID!
+name:String
+gmail:String!
+password:String
+isAdmin:Boolean
+}
+type OrderItem {
+   name: String
+   qty: Float
+  image: String
+   price: Float
+  product:ID
+}
+input OrderItemInput {
+   name: String
+   qty: Float
+  image: String
+   price: Float
+  product:ID
+}
+type ShippingAddress {
+     address: String
+      city: String
+      postalCode: String
+      country: String
+}
+input ShippingAddressInput {
+     address: String
+      city: String
+      postalCode: String
+      country: String
+}
+type PaymentResult {
+     id:String
+      status:String
+      update_time: String
+      email_address: String
+}
+input  PaymentResultInput {
+     id:String
+      status:String
+      update_time: String
+      email_address: String
+}
+ type Order     {
+    user:ID!
+    orderItems: [OrderItem]
+    shippingAddress: ShippingAddress
+    paymentMethod: String
+    paymentResult:PaymentResult
+    taxPrice:Float
+    shippingPrice: Float
+    totalPrice:Float 
+    isPaid: Boolean
+    paidAt:String
+    isDelivered:Boolean
+    deliveredAt:String
+  }
+
+  
+ 
+   
