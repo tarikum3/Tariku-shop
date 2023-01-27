@@ -12,6 +12,7 @@
 * Redux
 * Redux-thunk
 * React-bootstrap        
+* GraphQL
 
 <b>Backend: </b></br>
 * REST API
